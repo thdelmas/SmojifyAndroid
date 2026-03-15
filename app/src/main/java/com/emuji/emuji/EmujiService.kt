@@ -206,7 +206,7 @@ class EmujiService : Service() {
                 return@withContext
             }
 
-            val url = URL("http", "api.emuji.com", 4444, "/react")
+            val url = URL("https", "api.emuji.com", 4444, "/react")
             conn = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
                 setRequestProperty("Content-Type", "application/json; charset=UTF-8")

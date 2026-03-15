@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmojifySample</string>
+    <string name="app_name">Emuji</string>
     <string name="connection">Connect to Spotify</string>
     <string name="version">v0.1</string>
     <string name="update">List the update or list the tasks</string>

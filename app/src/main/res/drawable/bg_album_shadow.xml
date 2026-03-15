@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Album art shadow for depth -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Large shadow -->
+    <item
+        android:top="8dp"
+        android:left="8dp"
+        android:right="8dp"
+        android:bottom="12dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#40000000"/>
+            <corners android:radius="@dimen/corner_radius_xl"/>
+        </shape>
+    </item>
+    
+    <!-- Medium shadow -->
+    <item
+        android:top="4dp"
+        android:left="4dp"
+        android:right="4dp"
+        android:bottom="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#30000000"/>
+            <corners android:radius="@dimen/corner_radius_xl"/>
+        </shape>
+    </item>
+    
+    <!-- Small shadow -->
+    <item
+        android:top="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:bottom="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#20000000"/>
+            <corners android:radius="@dimen/corner_radius_xl"/>
+        </shape>
+    </item>
+</layer-list>
+

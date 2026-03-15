@@ -1,56 +1,366 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/parentLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
-        <ImageView
-            android:id="@+id/logoImageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@mipmap/ic_launcher_foreground"
-            android:layout_gravity="center_horizontal" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btnSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Settings" />
+            <!-- Hero Section with Gradient -->
+            <FrameLayout
+                android:id="@+id/heroSection"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_hero_gradient"
+                android:minHeight="@dimen/hero_min_height"
+                app:layout_constraintDimensionRatio="H,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Player" />
+                <!-- Hero Content -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_xl">
 
-        <Button
-            android:id="@+id/btnUserMood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Your Mood" />
+                    <!-- Logo with Glass Effect -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/logoCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_lg"
+                        app:cardBackgroundColor="@color/glass_overlay_light"
+                        app:cardCornerRadius="@dimen/corner_radius_xxl"
+                        app:cardElevation="0dp"
+                        app:strokeColor="@color/glass_stroke"
+                        app:strokeWidth="1dp">
 
-        <Button
-            android:id="@+id/btnWorldMood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="World Mood" />
+                        <ImageView
+                            android:id="@+id/logoImageView"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:contentDescription="@string/app_name"
+                            android:padding="@dimen/spacing_md"
+                            android:src="@mipmap/ic_launcher_foreground" />
 
-    </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- App Title -->
+                    <TextView
+                        android:id="@+id/appTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="#40000000"
+                        android:shadowDx="0"
+                        android:shadowDy="2"
+                        android:shadowRadius="8"
+                        android:text="@string/app_name"
+                        android:textAppearance="@style/TextAppearance.App.HeadlineLarge"
+                        android:textColor="@color/spotify_white"
+                        android:textStyle="bold" />
+
+                    <!-- Subtitle -->
+                    <TextView
+                        android:id="@+id/appSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:alpha="0.95"
+                        android:shadowColor="#40000000"
+                        android:shadowDx="0"
+                        android:shadowDy="1"
+                        android:shadowRadius="4"
+                        android:text="Express Your Music with Emojis"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.App.BodyLarge"
+                        android:textColor="@color/spotify_off_white" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- Navigation Cards Container with Overlap -->
+            <LinearLayout
+                android:id="@+id/navigationContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_lg"
+                android:layout_marginTop="-48dp"
+                android:layout_marginEnd="@dimen/spacing_lg"
+                android:layout_marginBottom="@dimen/spacing_xl"
+                android:elevation="@dimen/elevation_high"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/heroSection">
+
+                <!-- Player Card - Primary Action -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnPlayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="@color/spotify_green"
+                    app:cardCornerRadius="@dimen/corner_radius_xl"
+                    app:cardElevation="@dimen/elevation_high"
+                    app:rippleColor="#40FFFFFF"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/button_min_height"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/spacing_lg">
+
+                        <!-- Icon Container -->
+                        <FrameLayout
+                            android:layout_width="@dimen/icon_size_lg"
+                            android:layout_height="@dimen/icon_size_lg"
+                            android:background="@drawable/ripple_circular">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_md"
+                                android:layout_height="@dimen/icon_size_md"
+                                android:layout_gravity="center"
+                                android:contentDescription="Player"
+                                android:src="@drawable/ic_play"
+                                android:tint="@color/spotify_black" />
+
+                        </FrameLayout>
+
+                        <!-- Text Container -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing_md"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Player"
+                                android:textAppearance="@style/TextAppearance.App.TitleLarge"
+                                android:textColor="@color/spotify_black"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:alpha="0.8"
+                                android:text="Control your music"
+                                android:textAppearance="@style/TextAppearance.App.BodySmall"
+                                android:textColor="@color/spotify_black" />
+
+                        </LinearLayout>
+
+                        <!-- Arrow -->
+                        <ImageView
+                            android:layout_width="@dimen/icon_size_sm"
+                            android:layout_height="@dimen/icon_size_sm"
+                            android:contentDescription="Navigate"
+                            android:src="@android:drawable/ic_media_next"
+                            android:tint="@color/spotify_black" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Grid Layout for Secondary Cards -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Your Mood Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnUserMood"
+                        android:layout_width="0dp"
+                        android:layout_height="140dp"
+                        android:layout_marginEnd="@dimen/spacing_xs"
+                        android:layout_marginBottom="@dimen/spacing_md"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardBackgroundColor="?attr/colorSurface"
+                        app:cardCornerRadius="@dimen/corner_radius_lg"
+                        app:cardElevation="@dimen/elevation_medium"
+                        app:layout_constraintBottom_toTopOf="@id/btnSettings"
+                        app:layout_constraintEnd_toStartOf="@id/btnWorldMood"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeColor="?attr/colorOutlineVariant"
+                        app:strokeWidth="0.5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/spacing_md">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="😊"
+                                android:textSize="@dimen/emoji_size_large" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_sm"
+                                android:text="Your Mood"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.App.TitleMedium"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_xs"
+                                android:text="Personal"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.App.BodySmall"
+                                android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- World Mood Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnWorldMood"
+                        android:layout_width="0dp"
+                        android:layout_height="140dp"
+                        android:layout_marginStart="@dimen/spacing_xs"
+                        android:layout_marginBottom="@dimen/spacing_md"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardBackgroundColor="?attr/colorSurface"
+                        app:cardCornerRadius="@dimen/corner_radius_lg"
+                        app:cardElevation="@dimen/elevation_medium"
+                        app:layout_constraintBottom_toTopOf="@id/btnSettings"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btnUserMood"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeColor="?attr/colorOutlineVariant"
+                        app:strokeWidth="0.5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/spacing_md">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="🌍"
+                                android:textSize="@dimen/emoji_size_large" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_sm"
+                                android:text="World Mood"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.App.TitleMedium"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_xs"
+                                android:text="Global"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.App.BodySmall"
+                                android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Settings Card - Full Width -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnSettings"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardBackgroundColor="?attr/colorSurface"
+                        app:cardCornerRadius="@dimen/corner_radius_lg"
+                        app:cardElevation="@dimen/elevation_medium"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btnUserMood"
+                        app:strokeColor="?attr/colorOutlineVariant"
+                        app:strokeWidth="0.5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/spacing_lg">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_md"
+                                android:layout_height="@dimen/icon_size_md"
+                                android:contentDescription="Settings"
+                                android:src="@drawable/ic_settings"
+                                android:tint="?attr/colorSecondary" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/spacing_md"
+                                android:layout_weight="1"
+                                android:text="Settings"
+                                android:textAppearance="@style/TextAppearance.App.TitleMedium"
+                                android:textColor="?attr/colorOnSurface" />
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_sm"
+                                android:layout_height="@dimen/icon_size_sm"
+                                android:contentDescription="Navigate"
+                                android:src="@android:drawable/ic_media_next"
+                                android:tint="?attr/colorOnSurfaceVariant" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,16 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#121212</color>
-    <color name="grey">#282828 </color>
-    <color name="light_grey_text">#A5A5A5 </color>
-    <color name="white">#F6F6F6</color>
-    <color name="green">#FF1DB954</color>
-    <color name="red">#FFFF0000</color>
-    <color name="switch_track_color">#C0C0C0</color>
+    <!-- Premium Apple + Spotify Color System -->
+    
+    <!-- Primary Colors - Vibrant Spotify Green -->
+    <color name="md_theme_light_primary">#1ED760</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#E8F8F0</color>
+    <color name="md_theme_light_onPrimaryContainer">#001E11</color>
+    
+    <!-- Secondary Colors - Apple-inspired blues -->
+    <color name="md_theme_light_secondary">#007AFF</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#E3F2FD</color>
+    <color name="md_theme_light_onSecondaryContainer">#001A41</color>
+    
+    <!-- Tertiary Colors - Purple accent -->
+    <color name="md_theme_light_tertiary">#AF52DE</color>
+    <color name="md_theme_light_onTertiary">#FFFFFF</color>
+    <color name="md_theme_light_tertiaryContainer">#F3E5F8</color>
+    <color name="md_theme_light_onTertiaryContainer">#2D0A3E</color>
+    
+    <!-- Error Colors -->
+    <color name="md_theme_light_error">#FF3B30</color>
+    <color name="md_theme_light_errorContainer">#FFEBE9</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_onErrorContainer">#410002</color>
+    
+    <!-- Background Colors - Clean Apple white -->
+    <color name="md_theme_light_background">#F9F9F9</color>
+    <color name="md_theme_light_onBackground">#1C1C1E</color>
+    
+    <!-- Surface Colors with subtle variations -->
+    <color name="md_theme_light_surface">#FFFFFF</color>
+    <color name="md_theme_light_onSurface">#1C1C1E</color>
+    <color name="md_theme_light_surfaceVariant">#F2F2F7</color>
+    <color name="md_theme_light_onSurfaceVariant">#48484A</color>
+    
+    <!-- Outline -->
+    <color name="md_theme_light_outline">#C6C6C8</color>
+    <color name="md_theme_light_outlineVariant">#E5E5EA</color>
+    
+    <!-- Dark Theme Colors - Rich blacks with depth -->
+    <color name="md_theme_dark_primary">#1ED760</color>
+    <color name="md_theme_dark_onPrimary">#001E11</color>
+    <color name="md_theme_dark_primaryContainer">#004D2E</color>
+    <color name="md_theme_dark_onPrimaryContainer">#B7F4D7</color>
+    
+    <color name="md_theme_dark_secondary">#0A84FF</color>
+    <color name="md_theme_dark_onSecondary">#001A41</color>
+    <color name="md_theme_dark_secondaryContainer">#004C99</color>
+    <color name="md_theme_dark_onSecondaryContainer">#B3D7FF</color>
+    
+    <color name="md_theme_dark_tertiary">#BF5AF2</color>
+    <color name="md_theme_dark_onTertiary">#2D0A3E</color>
+    <color name="md_theme_dark_tertiaryContainer">#5E2D6D</color>
+    <color name="md_theme_dark_onTertiaryContainer">#EED4FF</color>
+    
+    <color name="md_theme_dark_error">#FF453A</color>
+    <color name="md_theme_dark_errorContainer">#93000A</color>
+    <color name="md_theme_dark_onError">#690005</color>
+    <color name="md_theme_dark_onErrorContainer">#FFB4AB</color>
+    
+    <color name="md_theme_dark_background">#000000</color>
+    <color name="md_theme_dark_onBackground">#EBEBF5</color>
+    
+    <color name="md_theme_dark_surface">#0A0A0A</color>
+    <color name="md_theme_dark_onSurface">#EBEBF5</color>
+    <color name="md_theme_dark_surfaceVariant">#1C1C1E</color>
+    <color name="md_theme_dark_onSurfaceVariant">#C7C7CC</color>
+    
+    <color name="md_theme_dark_outline">#48484A</color>
+    <color name="md_theme_dark_outlineVariant">#2C2C2E</color>
+    
+    <!-- Premium Spotify-inspired colors -->
+    <color name="spotify_green">#1ED760</color>
+    <color name="spotify_green_bright">#1FDF64</color>
+    <color name="spotify_black">#000000</color>
+    <color name="spotify_dark_grey">#121212</color>
+    <color name="spotify_mid_grey">#181818</color>
+    <color name="spotify_grey">#282828</color>
+    <color name="spotify_light_grey">#B3B3B3</color>
+    <color name="spotify_white">#FFFFFF</color>
+    <color name="spotify_off_white">#F6F6F6</color>
+    
+    <!-- Apple-inspired semantic colors -->
+    <color name="apple_blue">#007AFF</color>
+    <color name="apple_purple">#AF52DE</color>
+    <color name="apple_pink">#FF2D55</color>
+    <color name="apple_orange">#FF9500</color>
+    <color name="apple_yellow">#FFCC00</color>
+    <color name="apple_teal">#5AC8FA</color>
+    
+    <!-- Gradient colors for immersive player -->
+    <color name="gradient_start">#1ED760</color>
+    <color name="gradient_mid">#169C46</color>
+    <color name="gradient_end">#0D1F17</color>
+    
+    <!-- Glass effect colors -->
+    <color name="glass_overlay_light">#F0FFFFFF</color>
+    <color name="glass_overlay_dark">#40000000</color>
+    <color name="glass_stroke">#20FFFFFF</color>
+    
+    <!-- Elevation tints -->
+    <color name="elevation_overlay_light">#08000000</color>
+    <color name="elevation_overlay_dark">#0DFFFFFF</color>
+    
+    <!-- Legacy colors (kept for compatibility) -->
+    <color name="green">#1ED760</color>
+    <color name="black">#000000</color>
+    <color name="grey">#282828</color>
+    <color name="light_grey_text">#B3B3B3</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF3B30</color>
     <color name="transparent">#00000000</color>
 </resources>

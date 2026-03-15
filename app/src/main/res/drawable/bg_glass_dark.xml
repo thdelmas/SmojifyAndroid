@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glassmorphism effect for dark theme - Apple inspired -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background with blur simulation -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glass_overlay_dark"/>
+            <corners android:radius="@dimen/corner_radius_xl"/>
+        </shape>
+    </item>
+    
+    <!-- Subtle border -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="@dimen/glass_stroke_width"
+                android:color="@color/glass_stroke"/>
+            <corners android:radius="@dimen/corner_radius_xl"/>
+        </shape>
+    </item>
+</layer-list>
+

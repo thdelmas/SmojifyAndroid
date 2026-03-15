@@ -11,7 +11,7 @@ then
 else
 	JAVA_VERSION="$(java --version | head -n1 | cut -d' ' -f2)"
 	echo "Java Version: $JAVA_VERSION"
-	LOWEST_JAVA_VERSION="$(echo "$JAVA_VERSION\n$REQUIRED_JAVA_VERSION" | sort | head -n1)"
+	LOWEST_JAVA_VERSION="$(printf "%s\n%s\n" "$JAVA_VERSION" "$REQUIRED_JAVA_VERSION" | sort -V | head -n1)"
 	if [ "$LOWEST_JAVA_VERSION" != "$REQUIRED_JAVA_VERSION" ]
 	then
 		echo "Please update your java version to $REQUIRED_JAVA_VERSION or later"
@@ -21,7 +21,7 @@ fi
 }
 
 
-echo "Smojify Installer"
+echo "Emuji Installer"
 check_java_version
 
 echo "Downloading Spotify libs"

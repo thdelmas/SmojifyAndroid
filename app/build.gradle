@@ -1,19 +1,26 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.smojify.smojify'
-    compileSdk 33
+    namespace 'com.emuji.emuji'
+    compileSdk 34
 
     defaultConfig {
-        applicationId "com.smojify.smojify"
+        applicationId "com.emuji.emuji"
         minSdk 24
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        targetSdk 34
+        versionCode 3
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        // Spotify Auth SDK configuration
+        manifestPlaceholders = [
+            redirectSchemeName: "http",
+            redirectHostName: "localhost:8888"
+        ]
     }
 
     buildTypes {
@@ -26,19 +33,61 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
-
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    // Kotlin
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.20'
+    
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    
+    // Lifecycle components
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+    implementation 'androidx.activity:activity-ktx:1.8.2'
+    
+    // Updated AndroidX dependencies
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
+    
+    // Updated networking library
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    
+    // Emoji library
     implementation 'com.vdurmont:emoji-java:5.1.1'
-    implementation "com.google.code.gson:gson:2.6.1"
+    
+    // AndroidX Emoji2 for better emoji rendering
+    implementation 'androidx.emoji2:emoji2:1.4.0'
+    implementation 'androidx.emoji2:emoji2-views:1.4.0'
+    implementation 'androidx.emoji2:emoji2-bundled:1.4.0'
+    
+    // Updated Gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+    
+    // Spotify SDK
+    // Auth library from Maven Central (v2.1.2 - modern version)
+    implementation 'com.spotify.android:auth:2.1.2'
+    
+    // App Remote - Placeholder AAR (download real one from Spotify)
+    // ⚠️ WARNING: This is a placeholder! Download the real AAR from:
+    // https://developer.spotify.com/documentation/android/quick-start/
+    // The app won't work without the real Spotify App Remote SDK!
     implementation files('libs/spotify-app-remote-release-0.7.2.aar')
-    implementation files('libs/spotify-auth-release-1.2.3.aar')
+    
+    // Testing dependencies
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

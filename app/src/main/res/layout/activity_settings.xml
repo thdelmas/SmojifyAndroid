@@ -1,267 +1,540 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:padding="16dp"
+    android:background="?attr/colorSurface"
+    android:fitsSystemWindows="true"
     tools:context=".SettingsActivity">
 
-    <!-- Settings Title -->
-    <TextView
-        android:id="@+id/tvSettingsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Part 1: World Contribution -->
-    <LinearLayout
-        android:id="@+id/llLocalContribution"
+    <!-- App Bar with Blur Effect -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
-        <TextView
-            android:id="@+id/tvLocalContribution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create Local User Playlists"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorSurface"
+            app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
+            app:title="Settings"
+            app:titleTextAppearance="@style/TextAppearance.App.HeadlineSmall" />
 
-        <Switch
-            android:id="@+id/switchLocalContribution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:textColor="@color/green"
-            android:layout_gravity="center_horizontal" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:id="@+id/switchLocalContributionStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
-    <!-- Part 1: World Contribution -->
-    <LinearLayout
-        android:id="@+id/llWorldContribution"
+    <!-- Settings Content -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tvWorldContribution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Participate in World Wide Playlits"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal" />
-
-        <Switch
-            android:id="@+id/switchWorldContribution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:textColor="@color/green"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:id="@+id/switchWorldContributionStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
-
-    <!-- Part 2: Playlist Privacy -->
-    <LinearLayout
-        android:id="@+id/llPlaylistPrivacy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:id="@+id/tvPlaylistPrivacy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Playlist Privacy"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal" />
-
-        <Switch
-            android:id="@+id/switchPlaylistPrivacy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:id="@+id/switchPlaylistPrivacyStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:id="@+id/llPlaylistPrivacySubSettings"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <CheckBox
-                android:id="@+id/checkboxUpdatePlaylistPrivacy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true" />
-
-            <TextView
-                android:id="@+id/tvUpdatePlaylistPrivacy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Apply to previously created playlists"
-                android:layout_marginEnd="8dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!-- Part 3: Playlist Contribution -->
-    <LinearLayout
-        android:id="@+id/llPlaylistContribution"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:id="@+id/tvPlaylistContribution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Playlist Contribution"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal" />
-
-        <Switch
-            android:id="@+id/switchPlaylistContribution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:id="@+id/switchPlaylistContributionStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
-
-        <LinearLayout
-            android:id="@+id/llPlaylistContributionSubSettings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <CheckBox
-                android:id="@+id/checkboxUpdatePlaylistContribution"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true" />
-
-            <TextView
-                android:id="@+id/tvUpdatePlaylistContribution"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Apply to previously created playlists"
-                android:layout_marginEnd="8dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!-- Part 4: Emoji Style -->
-    <LinearLayout
-        android:id="@+id/llEmojiStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:id="@+id/tvEmojiStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Emoji Style"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal" />
-
-        <RadioGroup
-            android:id="@+id/radioGroupEmojiStyle"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:checkedButton="@id/radioButtonDevice"
-            android:layout_gravity="left">
+            android:paddingStart="@dimen/spacing_lg"
+            android:paddingTop="@dimen/spacing_md"
+            android:paddingEnd="@dimen/spacing_lg"
+            android:paddingBottom="@dimen/spacing_xl">
 
-            <RadioButton
-                android:id="@+id/radioButtonDevice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Device" />
-
-            <RadioButton
-                android:id="@+id/radioButtonGoogle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Google" />
-
-            <RadioButton
-                android:id="@+id/radioButtonApple"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Apple" />
-
-            <RadioButton
-                android:id="@+id/radioButtonTwitter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Twitter" />
-
-            <RadioButton
-                android:id="@+id/radioButtonOpenmoji"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Openmoji" />
-
-        </RadioGroup>
-
-        <LinearLayout
-            android:id="@+id/llEmojiStyleSubSettings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <CheckBox
-                android:id="@+id/checkboxUpdateEmojiStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true" />
-
+            <!-- Section: Playlists -->
             <TextView
-                android:id="@+id/tvUpdateEmojiStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Apply to previously created playlists"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginBottom="@dimen/spacing_sm"
+                android:paddingStart="@dimen/spacing_xs"
+                android:text="PLAYLISTS"
+                android:textAppearance="@style/TextAppearance.App.LabelLarge"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textStyle="bold" />
+
+            <!-- Personal Playlists Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/llPersonalContribution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_md"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="@dimen/corner_radius_lg"
+                app:cardElevation="0dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:strokeWidth="0.5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="72dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/spacing_lg"
+                    android:paddingEnd="@dimen/spacing_lg">
+
+                    <!-- Icon -->
+                    <FrameLayout
+                        android:layout_width="@dimen/icon_size_md"
+                        android:layout_height="@dimen/icon_size_md"
+                        android:background="@drawable/ripple_circular">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="👤"
+                            android:textSize="@dimen/emoji_size_small" />
+
+                    </FrameLayout>
+
+                    <!-- Text Container -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_md"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvPersonalContribution"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Create Personal Playlists"
+                            android:textAppearance="@style/TextAppearance.App.BodyLarge"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/switchPersonalContributionStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textAppearance="@style/TextAppearance.App.BodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+
+                    </LinearLayout>
+
+                    <!-- Switch -->
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchPersonalContribution"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- World Wide Playlists Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/llWorldContribution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_xl"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="@dimen/corner_radius_lg"
+                app:cardElevation="0dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:strokeWidth="0.5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="72dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/spacing_lg"
+                    android:paddingEnd="@dimen/spacing_lg">
+
+                    <!-- Icon -->
+                    <FrameLayout
+                        android:layout_width="@dimen/icon_size_md"
+                        android:layout_height="@dimen/icon_size_md"
+                        android:background="@drawable/ripple_circular">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="🌍"
+                            android:textSize="@dimen/emoji_size_small" />
+
+                    </FrameLayout>
+
+                    <!-- Text Container -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_md"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvWorldContribution"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="World Wide Playlists"
+                            android:textAppearance="@style/TextAppearance.App.BodyLarge"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/switchWorldContributionStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textAppearance="@style/TextAppearance.App.BodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+
+                    </LinearLayout>
+
+                    <!-- Switch -->
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchWorldContribution"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section: Privacy -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_sm"
+                android:paddingStart="@dimen/spacing_xs"
+                android:text="PRIVACY"
+                android:textAppearance="@style/TextAppearance.App.LabelLarge"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textStyle="bold" />
+
+            <!-- Playlist Privacy Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/llPlaylistPrivacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_md"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="@dimen/corner_radius_lg"
+                app:cardElevation="0dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:strokeWidth="0.5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvPlaylistPrivacy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Playlist Privacy"
+                                android:textAppearance="@style/TextAppearance.App.BodyLarge"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/switchPlaylistPrivacyStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textAppearance="@style/TextAppearance.App.BodySmall"
+                                android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchPlaylistPrivacy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_height"
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:layout_marginBottom="@dimen/spacing_md"
+                        android:background="?attr/colorOutlineVariant" />
+
+                    <!-- Sub-setting -->
+                    <LinearLayout
+                        android:id="@+id/llPlaylistPrivacySubSettings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/checkboxUpdatePlaylistPrivacy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                        <TextView
+                            android:id="@+id/tvUpdatePlaylistPrivacy"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Apply to previously created playlists"
+                            android:textAppearance="@style/TextAppearance.App.BodyMedium"
+                            android:textColor="?attr/colorOnSurface" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Playlist Contribution Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/llPlaylistContribution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_xl"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="@dimen/corner_radius_lg"
+                app:cardElevation="0dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:strokeWidth="0.5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvPlaylistContribution"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Playlist Contribution"
+                                android:textAppearance="@style/TextAppearance.App.BodyLarge"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/switchPlaylistContributionStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textAppearance="@style/TextAppearance.App.BodySmall"
+                                android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchPlaylistContribution"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_height"
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:layout_marginBottom="@dimen/spacing_md"
+                        android:background="?attr/colorOutlineVariant" />
+
+                    <!-- Sub-setting -->
+                    <LinearLayout
+                        android:id="@+id/llPlaylistContributionSubSettings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/checkboxUpdatePlaylistContribution"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                        <TextView
+                            android:id="@+id/tvUpdatePlaylistContribution"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Apply to previously created playlists"
+                            android:textAppearance="@style/TextAppearance.App.BodyMedium"
+                            android:textColor="?attr/colorOnSurface" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section: Appearance -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_sm"
+                android:paddingStart="@dimen/spacing_xs"
+                android:text="APPEARANCE"
+                android:textAppearance="@style/TextAppearance.App.LabelLarge"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textStyle="bold" />
+
+            <!-- Emoji Style Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/llEmojiStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_md"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="@dimen/corner_radius_lg"
+                app:cardElevation="0dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:strokeWidth="0.5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <TextView
+                        android:id="@+id/tvEmojiStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_md"
+                        android:text="Emoji Style"
+                        android:textAppearance="@style/TextAppearance.App.BodyLarge"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupEmojiStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkedButton="@id/radioButtonDevice"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radioButtonDevice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/spacing_xs"
+                            android:paddingBottom="@dimen/spacing_xs"
+                            android:text="Device"
+                            android:textAppearance="@style/TextAppearance.App.BodyMedium" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radioButtonGoogle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/spacing_xs"
+                            android:paddingBottom="@dimen/spacing_xs"
+                            android:text="Google"
+                            android:textAppearance="@style/TextAppearance.App.BodyMedium" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radioButtonApple"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/spacing_xs"
+                            android:paddingBottom="@dimen/spacing_xs"
+                            android:text="Apple"
+                            android:textAppearance="@style/TextAppearance.App.BodyMedium" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radioButtonTwitter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/spacing_xs"
+                            android:paddingBottom="@dimen/spacing_xs"
+                            android:text="Twitter"
+                            android:textAppearance="@style/TextAppearance.App.BodyMedium" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radioButtonOpenmoji"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/spacing_xs"
+                            android:paddingBottom="@dimen/spacing_xs"
+                            android:text="Openmoji"
+                            android:textAppearance="@style/TextAppearance.App.BodyMedium" />
+
+                    </RadioGroup>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_height"
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:layout_marginBottom="@dimen/spacing_md"
+                        android:background="?attr/colorOutlineVariant" />
+
+                    <!-- Sub-setting -->
+                    <LinearLayout
+                        android:id="@+id/llEmojiStyleSubSettings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/checkboxUpdateEmojiStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                        <TextView
+                            android:id="@+id/tvUpdateEmojiStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Apply to previously created playlists"
+                            android:textAppearance="@style/TextAppearance.App.BodyMedium"
+                            android:textColor="?attr/colorOnSurface" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,161 +4,514 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:background="@color/black">
+    android:background="@drawable/bg_immersive_player"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <!-- Top Half: Player Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/playerSection"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="vertical"
-
-        android:padding="10dp"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/spacing_md"
+        android:paddingTop="@dimen/spacing_sm"
+        android:paddingEnd="@dimen/spacing_md"
+        android:paddingBottom="@dimen/spacing_xs"
+        app:layout_constraintBottom_toTopOf="@id/keyboardDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp">
+        app:layout_constraintVertical_weight="1">
 
-        <LinearLayout
+            <!-- Playlists Button with Glass Effect -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/playlistsButton"
+                android:layout_width="@dimen/icon_size_lg"
+                android:layout_height="@dimen/icon_size_lg"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/glass_overlay_dark"
+                app:cardCornerRadius="@dimen/corner_radius_full"
+                app:cardElevation="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/glass_stroke"
+                app:strokeWidth="@dimen/glass_stroke_width">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_sm"
+                    android:layout_height="@dimen/icon_size_sm"
+                    android:layout_gravity="center"
+                    android:contentDescription="Playlists"
+                    android:src="@drawable/ic_music_note"
+                    android:tint="@color/spotify_white" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Settings Button with Glass Effect -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/settingsButton"
+                android:layout_width="@dimen/icon_size_lg"
+                android:layout_height="@dimen/icon_size_lg"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/glass_overlay_dark"
+                app:cardCornerRadius="@dimen/corner_radius_full"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/glass_stroke"
+                app:strokeWidth="@dimen/glass_stroke_width">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_sm"
+                    android:layout_height="@dimen/icon_size_sm"
+                    android:layout_gravity="center"
+                    android:contentDescription="Settings"
+                    android:src="@drawable/ic_settings"
+                    android:tint="@color/spotify_white" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Now Playing Badge - Hidden -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/playlistCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/currentSongLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/playlistTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Album Art with Premium Shadow (Compact) -->
+            <FrameLayout
+                android:id="@+id/albumArtContainer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/spacing_sm"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/playlistsButton"
+                app:layout_constraintWidth_percent="0.40">
+
+                <!-- Album Shadow -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/spacing_sm"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    android:layout_marginBottom="@dimen/spacing_md"
+                    android:background="@drawable/bg_album_shadow" />
+
+                <!-- Album Art Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/albumArtCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="@dimen/corner_radius_xxl"
+                    app:cardElevation="@dimen/elevation_ultra">
+
+                    <ImageView
+                        android:id="@+id/albumCoverImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/todo"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/emuji_logo_200" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </FrameLayout>
+
+            <!-- Song Info Container (Compact) -->
+            <LinearLayout
+                android:id="@+id/songInfoContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/albumArtContainer">
+
+                <TextView
+                    android:id="@+id/songTitleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/currentsongtitlelabel"
+                    android:textAppearance="@style/TextAppearance.App.TitleLarge"
+                    android:textColor="@color/spotify_white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/artistTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/currentsongastistlabel"
+                    android:textAppearance="@style/TextAppearance.App.BodyMedium"
+                    android:textColor="@color/spotify_light_grey" />
+
+                <!-- Playback Progress Container -->
+                <LinearLayout
+                    android:id="@+id/progressContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <!-- Progress Bar -->
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/playbackProgress"
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"
+                        android:max="100"
+                        android:progress="0"
+                        app:indicatorColor="@color/spotify_green_bright"
+                        app:trackColor="#30FFFFFF"
+                        app:trackCornerRadius="@dimen/corner_radius_xs"
+                        app:trackThickness="6dp" />
+
+                    <!-- Time Labels -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_xs"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/currentTimeText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.9"
+                            android:text="0:00"
+                            android:textAppearance="@style/TextAppearance.App.LabelMedium"
+                            android:textColor="@color/spotify_light_grey"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/totalTimeText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.9"
+                            android:text="0:00"
+                            android:textAppearance="@style/TextAppearance.App.LabelMedium"
+                            android:textColor="@color/spotify_light_grey"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Loading Indicator -->
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/loadingProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_md"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:indicatorColor="@color/spotify_green"
+                    app:trackColor="#30FFFFFF"
+                    app:trackCornerRadius="@dimen/corner_radius_xs" />
+
+            </LinearLayout>
+
+            <!-- Media Controls (Compact) -->
+            <LinearLayout
+                android:id="@+id/mediaControlsContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:layout_marginBottom="@dimen/spacing_sm"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/songInfoContainer">
+
+                <!-- Previous Button -->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/previousButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_lg"
+                    android:contentDescription="Previous"
+                    android:src="@android:drawable/ic_media_previous"
+                    app:backgroundTint="#30FFFFFF"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"
+                    app:fabSize="mini"
+                    app:pressedTranslationZ="@dimen/elevation_medium"
+                    app:rippleColor="@color/spotify_light_grey"
+                    app:tint="@color/spotify_white" />
+
+                <!-- Play/Pause Button -->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/pauseButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Pause"
+                    android:src="@android:drawable/ic_media_pause"
+                    app:backgroundTint="@color/spotify_green_bright"
+                    app:borderWidth="0dp"
+                    app:elevation="@dimen/elevation_high"
+                    app:fabCustomSize="56dp"
+                    app:fabSize="auto"
+                    app:maxImageSize="28dp"
+                    app:pressedTranslationZ="@dimen/elevation_ultra"
+                    app:rippleColor="#80FFFFFF"
+                    app:tint="@color/spotify_black" />
+
+                <!-- Play Button (hidden by default) -->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/playButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Play"
+                    android:src="@android:drawable/ic_media_play"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/spotify_green_bright"
+                    app:borderWidth="0dp"
+                    app:elevation="@dimen/elevation_high"
+                    app:fabCustomSize="56dp"
+                    app:fabSize="auto"
+                    app:maxImageSize="28dp"
+                    app:pressedTranslationZ="@dimen/elevation_ultra"
+                    app:rippleColor="#80FFFFFF"
+                    app:tint="@color/spotify_black" />
+
+                <!-- Next Button -->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/nextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_lg"
+                    android:contentDescription="Next"
+                    android:src="@android:drawable/ic_media_next"
+                    app:backgroundTint="#30FFFFFF"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp"
+                    app:fabSize="mini"
+                    app:pressedTranslationZ="@dimen/elevation_medium"
+                    app:rippleColor="@color/spotify_light_grey"
+                    app:tint="@color/spotify_white" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/keyboardDivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/glass_stroke"
+        app:layout_constraintBottom_toTopOf="@id/emojiKeyboardSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playerSection" />
+
+    <!-- Bottom Half: Emoji Keyboard Section -->
+    <LinearLayout
+        android:id="@+id/emojiKeyboardSection"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="?attr/colorSurface"
+        android:paddingTop="@dimen/spacing_md"
+        android:paddingBottom="@dimen/spacing_sm"
+        android:paddingStart="@dimen/spacing_md"
+        android:paddingEnd="@dimen/spacing_md"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/keyboardDivider"
+        app:layout_constraintVertical_weight="1">
+
+        <!-- Title -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_horizontal">
-            <TextView
-                android:id="@+id/currentSongLabel"
+            android:text="React with Emoji"
+            android:textAppearance="@style/TextAppearance.App.TitleLarge"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingBottom="8dp" />
+
+        <!-- Search Bar -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="Search emojis..."
+            app:boxBackgroundMode="filled"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:startIconDrawable="@android:drawable/ic_menu_search"
+            app:endIconMode="clear_text"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:imeOptions="actionSearch" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Category Chips -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/categoryChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:singleSelection="true"
+            app:selectionRequired="false"
+            app:chipSpacingHorizontal="4dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipRecent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Playing"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal"
-               />
+                android:text="⏱️ Recent"
+                android:textSize="12sp"
+                app:chipBackgroundColor="?attr/colorPrimaryContainer"
+                style="@style/Widget.Material3.Chip.Filter" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/playlistTextView"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSmileys"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="😀 Smileys"
+                android:textSize="12sp"
+                style="@style/Widget.Material3.Chip.Filter" />
 
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/albumCoverImageView"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🎵 Music"
+                android:textSize="12sp"
+                style="@style/Widget.Material3.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipHearts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="❤️ Hearts"
+                android:textSize="12sp"
+                style="@style/Widget.Material3.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All"
+                android:textSize="12sp"
+                android:checked="true"
+                style="@style/Widget.Material3.Chip.Filter" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Empty State for Search -->
+        <TextView
+            android:id="@+id/emptyStateText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="No emojis found"
+            android:textAppearance="@style/TextAppearance.App.BodyLarge"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:gravity="center"
+            android:visibility="gone" />
+
+        <!-- Emoji RecyclerView with modern styling -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/emojiRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:gravity="top"
-            android:contentDescription="@string/todo"
-            app:srcCompat="@drawable/smojify_logo_200" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/songTitleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="@string/currentsongtitlelabel"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal"
-                />
-
-            <TextView
-                android:id="@+id/artistTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/currentsongastistlabel"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal"
-                />
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/reactionLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/emojiButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:textSize="60sp"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:visibility="invisible"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
-
-            <ImageButton
-                android:id="@+id/logoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@android:color/transparent"
-                android:src="@mipmap/ic_launcher_foreground"
-                android:visibility="visible" />
-
-            <EditText
-                android:id="@+id/emojiInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:hint="Tap on the emoji to react"
-                android:textSize="16sp"
-                android:layout_gravity="bottom"
-                android:cursorVisible="false"/>
-
-        </FrameLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/previousButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#FF1DB954"
-                app:srcCompat="@android:drawable/ic_media_previous" />
-
-            <ImageButton
-                android:id="@+id/pauseButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#FF1DB954"
-                app:srcCompat="@android:drawable/ic_media_pause" />
-
-            <ImageButton
-                android:id="@+id/playButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#FF1DB954"
-                app:srcCompat="@android:drawable/ic_media_play"
-                android:visibility="gone"/>
-
-
-            <ImageButton
-                android:id="@+id/nextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#FF1DB954"
-                app:srcCompat="@android:drawable/ic_media_next" />
-        </LinearLayout>
+            android:clipToPadding="false"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false"
+            android:overScrollMode="ifContentScrolls" />
 
     </LinearLayout>
+
+    <!-- Hidden elements for backward compatibility -->
+    <Button
+        android:id="@+id/emojiButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/logoButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/emojiInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/reactionCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

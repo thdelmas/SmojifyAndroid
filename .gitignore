@@ -1,18 +1,31 @@
+# Gradle
+.gradle/
+build/
+*.apk
+*.aab
+
+# IDE
+.idea/
 *.iml
-.gradle
-app/libs
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
+local.properties
+
+# Kotlin
+.kotlin/
+
+# Java
+*.class
+META-INF/
+
+# Android
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+app/libs
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude
 .claude/
 -

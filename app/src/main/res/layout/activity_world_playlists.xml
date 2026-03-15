@@ -87,69 +87,82 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Content Area -->
-    <androidx.core.widget.NestedScrollView
+    <!-- Loading indicator -->
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- Playlist RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playlistRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:padding="@dimen/spacing_lg"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_lg"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/spacing_lg">
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
+            app:cardCornerRadius="@dimen/corner_radius_xl"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
 
-            <!-- Empty State -->
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                app:cardCornerRadius="@dimen/corner_radius_xl"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_xxxl">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_xxxl">
+                    android:text="🌐"
+                    android:textSize="@dimen/emoji_size_xlarge" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="🌐"
-                        android:textSize="@dimen/emoji_size_xlarge" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_lg"
+                    android:gravity="center"
+                    android:text="No World Playlists"
+                    android:textAppearance="@style/TextAppearance.App.TitleLarge"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_lg"
-                        android:gravity="center"
-                        android:text="Coming Soon"
-                        android:textAppearance="@style/TextAppearance.App.TitleLarge"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:gravity="center"
+                    android:text="Global emoji playlists are being prepared.\nStay tuned for worldwide music discovery!"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.App.BodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_sm"
-                        android:gravity="center"
-                        android:text="Global emoji playlists are being prepared.\nStay tuned for worldwide music discovery!"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/TextAppearance.App.BodyMedium"
-                        android:textColor="?attr/colorOnSurfaceVariant" />
+            </LinearLayout>
 
-                </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            </com.google.android.material.card.MaterialCardView>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

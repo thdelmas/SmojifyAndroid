@@ -111,6 +111,8 @@ class PlayerActivity : AppCompatActivity() {
             when (state) {
                 is AuthState.Authenticated -> {
                     spotifyWebToken = state.token
+                    getSharedPreferences("EmujiSettings", Context.MODE_PRIVATE)
+                        .edit().putString("spotifyWebToken", state.token).apply()
                     emujiService?.startService(this)
                     // Now that we have the token, connect to Spotify App Remote
                     connectToSpotifyAppRemote(state.token)

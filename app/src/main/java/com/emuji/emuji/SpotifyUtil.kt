@@ -393,6 +393,74 @@ class SpotifyUtil {
         }
     }
 
+    /**
+     * Fetches all playlists for a given user endpoint (e.g. "me" or "users/{id}").
+     */
+    suspend fun getPlaylists(webToken: String, userEndpoint: String = "me"): List<Playlist> = withContext(Dispatchers.IO) {
+        val playlists = mutableListOf<Playlist>()
+        var offset = 0
+        val limit = 50
+
+        try {
+            while (true) {
+                val url = URL("$API_BASE_URL/$userEndpoint/playlists?limit=$limit&offset=$offset")
+                val connection = (url.openConnection() as HttpURLConnection).apply {
+                    requestMethod = "GET"
+                    setRequestProperty("Authorization", "Bearer $webToken")
+                }
+
+                when (connection.responseCode) {
+                    HttpURLConnection.HTTP_OK -> {
+                        val response = connection.inputStream.bufferedReader().use { it.readText() }
+                        val items = JSONObject(response).getJSONArray("items")
+
+                        for (i in 0 until items.length()) {
+                            val item = items.getJSONObject(i)
+                            val images = item.getJSONArray("images")
+                            playlists.add(Playlist(
+                                id = item.getString("id"),
+                                name = item.getString("name"),
+                                uri = item.getString("uri"),
+                                trackCount = item.getJSONObject("tracks").getInt("total"),
+                                imageUrl = if (images.length() > 0) images.getJSONObject(0).getString("url") else null,
+                                owner = item.getJSONObject("owner").getString("display_name")
+                            ))
+                        }
+
+                        if (items.length() < limit) break
+                        offset += limit
+                        delay(300)
+                    }
+                    429 -> {
+                        Log.w(TAG, "Rate limited, waiting 30s...")
+                        delay(30000)
+                    }
+                    else -> {
+                        Log.e(TAG, "Error fetching playlists: HTTP ${connection.responseCode}")
+                        break
+                    }
+                }
+                connection.disconnect()
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "Failed to fetch playlists: ${e.message}")
+        } catch (e: JSONException) {
+            Log.e(TAG, "Failed to parse playlists: ${e.message}")
+        }
+
+        playlists
+    }
+
+    /**
+     * Fetches user's own playlists.
+     */
+    suspend fun getUserPlaylists(webToken: String): List<Playlist> = getPlaylists(webToken, "me")
+
+    /**
+     * Fetches Emuji world playlists.
+     */
+    suspend fun getWorldPlaylists(webToken: String): List<Playlist> = getPlaylists(webToken, "users/$emujiUri")
+
     companion object {
         private const val API_BASE_URL = "https://api.spotify.com/v1"
         private const val TAG = "SpotifyUtil"
